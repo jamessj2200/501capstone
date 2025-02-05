@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Scheduler</title>
+    <link rel="stylesheet" href="p.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <h1>Sports Scheduler</h1>
+    
+    <div id="auth">
+        <div id="signup">
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <input type="text" placeholder="Username" id="username" required>
+                <input type="email" placeholder="Email" id="email" required>
+                <input type="password" placeholder="Password" id="password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        
+        <div id="signin">
+            <h2>Sign In</h2>
+            <form id="signin-form">
+                <input type="email" placeholder="Email" id="signin-email" required>
+                <input type="password" placeholder="Password" id="signin-password" required>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="scheduler" style="display:none;">
+        <h2>Schedule a Sport Event</h2>
+        <form id="event-form">
+            <input type="text" placeholder="Sport Name" id="sport-name" required>
+            <input type="date" id="event-date" required>
+            <input type="time" id="event-time" required>
+            <button type="submit">Schedule Event</button>
+        </form>
+        <h2>Upcoming Events</h2>
+        <ul id="event-list"></ul>
+    </div>
+</body>
+</html>
