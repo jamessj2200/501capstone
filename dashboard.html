@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportsZone</title>
+    <link rel="stylesheet" href="p.css">
+</head>
+<body>
+    <h1>SportsZone</h1>
+    
+    <!-- Sign Up Section -->
+    <div id="signup">
+        <h2>Sign Up</h2>
+        <form id="signup-form">
+            <input type="text" placeholder="Username" id="username" required>
+            <input type="email" placeholder="Email" id="email" required>
+            <input type="password" placeholder="Password" id="password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+    
+    <!-- Sign In Section -->
+    <div id="signin">
+        <h2>Sign In</h2>
+        <form id="signin-form">
+            <input type="email" placeholder="Email" id="signin-email" required>
+            <input type="password" placeholder="Password" id="signin-password" required>
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+    
+    <!-- Sports Scheduling Section -->
+    <div id="schedule">
+        <h2>Schedule Sports Event</h2>
+        <form id="schedule-form">
+            <input type="text" placeholder="Sport Type" id="sport-type" required>
+            <input type="text" placeholder="Team 1" id="team1" required>
+            <input type="text" placeholder="Team 2" id="team2" required>
+            <input type="datetime-local" id="event-date-time" required>
+            <button type="submit">Schedule Event</button>
+        </form>
+    </div>
+    
+    <!-- Scheduled Events Section -->
+    <div id="scheduled-events">
+        <h3>Scheduled Events</h3>
+        <ul id="event-list"></ul>
+    </div>
+    
+    <script>
+        // Handle Sign Up
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const res = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, email, password }),
+            });
+            const data = await res.json();
+            alert(data.message);
+        });
+
+        // Handle Sign In
+        document.getElementById('signin-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('signin-email').value;
+            const password = document.getElementById('signin-password').value;
+
+            const res = await fetch('/api/auth/signin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+            const data = await res.json();
+            alert(data.message);
+        });
+
+        // Handle Scheduling Event
+        document.getElementById('schedule-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get input values
+            const sportType = document.getElementById('sport-type').value;
+            const team1 = document.getElementById('team1').value;
+            const team2 = document.getElementById('team2').value;
+            const eventDateTime = document.getElementById('event-date-time').value;
+
+            // Create event display
+            const eventItem = document.createElement('li');
+            eventItem.textContent = `${sportType}: ${team1} vs ${team2} on ${new Date(eventDateTime).toLocaleString()}`;
+            
+            // Append to the event list
+            document.getElementById('event-list').appendChild(eventItem);
+            
+            // Reset form
+            document.getElementById('schedule-form').reset();
+        });
+    </script>
+</body>
+</html>
